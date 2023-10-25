@@ -117,7 +117,7 @@ namespace EShop.Controllers
 
             return RedirectToAction("Index");
         }
-        public ActionResult Search(string searchTerm)
+        public ActionResult SearchName(string searchTerm)
         {
             var products = db.Products
                 .Where(p => p.name.Contains(searchTerm))
@@ -125,6 +125,13 @@ namespace EShop.Controllers
 
             return View("Index", products);
         }
-
+        public ActionResult Search(string searchTerm)
+        {
+            var filteredProducts = db.Products
+                .Where(p => p.Category.name.Contains(searchTerm))
+                .ToList();
+        
+            return View("Index", filteredProducts);
+        }
     }
 }
