@@ -18,6 +18,11 @@ namespace EShop
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Product", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "SearchByCategory",
+                url: "Product/Search",
+                defaults: new { controller = "Product", action = "Search" }
+            );
         }
     }
 }
