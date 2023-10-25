@@ -1,0 +1,215 @@
+﻿@model IEnumerable<EShop.Models.Product>
+@{
+    ViewBag.Title = "Index";
+}
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Trang chủ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        * {
+            padding: 0px;
+            margin: 0 auto;
+            font-family: Arial;
+        }
+
+        body {
+            margin: 0 50px;
+        }
+
+        .header {
+            padding: 20px;
+            color: #737373;
+            justify-items: center;
+            align-items: center;
+            box-shadow: 0 2px 0 0 gray;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        li {
+            display: inline-block;
+        }
+
+        p {
+            padding: 10px;
+        }
+
+        .mennu-header .menu-items a {
+            padding: 10px;
+            margin: 10px;
+        }
+
+        .mennu-header .left {
+            color: #d72828;
+            font-size: 25px;
+        }
+
+        .container {
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .product-list {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .product-list li {
+            display: inline-block;
+            padding: 20px;
+            flex: 1;
+            text-align: center;
+        }
+
+        .product-list li img {
+            width: 300px;
+        }
+
+        .product-list li h2 {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .product-list li .price {
+            font-size: 16px;
+            color: #d72828;
+            font-weight: bold;
+        }
+
+        .product-list .name-Product {
+            font-size: 20px;
+            font-weight: 100;
+        }
+
+        .product-list .saleoff-product {
+            width: 35px;
+            height: 25px;
+            color: white;
+            padding: 10px;
+            background-color: #d72828;
+            border-radius: 50%;
+            position: absolute;
+            margin-top: -23%;
+            margin-left: 15px;
+            justify-items: center;
+            align-items: center;
+        }
+
+        .image-add-to-cart img {
+            width: 300px;
+            height: 300px;
+        }
+
+        .image-add-to-cart .add-to-cart {
+            position: absolute;
+            width: 300px;
+            display: none;
+            margin-top: -38px;
+            padding: 10px;
+            background-color: #404040;
+            color: #fff;
+        }
+
+        .image-add-to-cart .fa-heart {
+            display: none;
+            margin-left: 10px;
+            position: absolute;
+            margin: -260px 0px 0px 250px;
+            color: #404040;
+            background-color: #f9f9f9;
+            border-radius: 50%;
+            padding: 10px;
+        }
+
+        .image-add-to-cart .fa-eye {
+            display: none;
+            margin-left: 10px;
+            position: absolute;
+            margin: -220px 0px 0px 250px;
+            color: #404040;
+            background-color: #f9f9f9;
+            border-radius: 50%;
+            padding: 10px;
+        }
+
+        .image-add-to-cart:hover .add-to-cart {
+            display: block;
+        }
+
+        .image-add-to-cart:hover .fa-heart,
+        .image-add-to-cart:hover .fa-eye {
+            display: block;
+        }
+        .search-bar input{
+            margin: 20px;
+            padding: 15px 60px;
+            border-radius: 10px;
+        }
+        .search-bar button {
+            padding: 15px 30px;
+            border-radius: 10px;
+        }
+        .droplist-category {
+            margin: 20px;
+            padding: 15px 60px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <ul class="mennu-header">
+            <li class="menu-items left">-</li>
+            <li class="menu-items" style="color: black"><a>NEW PRODUCT</a></li>
+            <li class="menu-items"<a>ON SALE</a></li>
+            <li class="menu-items"><a>FEATRUED PRODUCT</a></li>
+        </ul>
+    </div>
+    <div class="search-bar">
+        @using (Html.BeginForm("Search", "Product", FormMethod.Get))
+        {
+            <input type="text" name="searchTerm" placeholder="Tìm kiếm theo tên sản phẩm" />
+            <button type="submit">Tìm kiếm theo tên</button>
+        }
+        @using (Html.BeginForm("Search", "Product", FormMethod.Get))
+        {
+            <input type="text" name="searchTerm" placeholder="Chọn danh mục" />
+            <button type="submit">Tìm kiếm theo danh mục</button>
+        }
+    </div>
+    <main class="container">
+        <section class="product-list">
+            <ul>
+                @foreach (var product in Model)
+                {
+                    <li>
+                        <div class="image-add-to-cart">
+                            <img src="~/Upload/@product.image" alt="@product.id" class="product-image">
+                            <a href="#" class="add-to-cart">ADD TO CART</a>
+                            <i class="fas fa-heart"></i>
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <p class="price">$@product.unitPrice</p>
+                        <h5 class="name-Product">@product.name</h5>
+                        <div class="edit-delete">
+                            @Html.ActionLink("Edit", "Edit", new { id = product.id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = product.id })
+                        </div>
+                    </li>
+                }
+            </ul>
+        </section>
+    </main>
+
+</body>
+</html>
